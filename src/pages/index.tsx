@@ -5,12 +5,13 @@ import { trpc } from "../utils/trpc";
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
   const { data, isLoading } = trpc.useQuery(["hello"]);
+  const { data: userData, isLoading: isUserLoading } = trpc.useQuery(["user"]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading || isUserLoading) return <p>Loading...</p>;
 
   return (
     <div>
-      Hello {sessionData?.user?.name ?? "not logged in"}
+      Hello {userData?.user?.name ?? "not logged in"}
       {sessionData?.user ? (
         <button onClick={() => signOut()}>Sign Out</button>
       ) : (
