@@ -1,9 +1,17 @@
 import { withTRPC } from "@trpc/next";
-import { AppType } from "next/dist/shared/lib/utils";
+import { AppProps } from "next/app";
 import { AppRouter } from "./api/trpc/[trpc]";
+import { SessionProvider } from "next-auth/react";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+const MyApp = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) => {
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
 };
 
 export default withTRPC<AppRouter>({
