@@ -9,7 +9,7 @@ export const appRouter = createRouter().query("hello", {
       text: z.string().nullish(),
     })
     .nullish(),
-  resolve({ input }) {
+  resolve({ input, ctx }) {
     return {
       greeting: `hello ${input?.text ?? "world"}`,
     };

@@ -5,7 +5,8 @@ export const createContext = async (
   opts?: trpcNext.CreateNextContextOptions
 ) => {
   return {
-    testingContext: "hi there",
+    req: opts?.req,
+    res: opts?.res,
   };
 };
 type Context = trpc.inferAsyncReturnType<typeof createContext>;
